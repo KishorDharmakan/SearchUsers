@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserList as fetchUserListActionCreator } from '../../actions/UserList/action_creators';
 import TableView from '../common/TableView';
-import Spinner from '../common/Spinner';
+//import Spinner from '../common/Spinner';
+import { Spinner } from 'reactstrap';
 import Alert from '../common/Alert';
 
 class UserList extends Component {
@@ -16,7 +17,7 @@ class UserList extends Component {
       <div>
         {this.props.loading
           ?
-          <Spinner />
+          <Spinner color="primary" type="grow"/>
           :
           this.props.error ? <Alert errorMessage={this.props.error} />
             : <TableView tableData={this.props.data} colWidthPercentage={[7, 7, 25, 42]} linkColValue="Edit Title" />}

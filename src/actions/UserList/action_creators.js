@@ -10,7 +10,10 @@ export const fetchUserList = () => dispatch => {
         .then((resp) => resp)
         .then(function (data) {
             console.log('inside fetchBlocks stubUserListData.userList:', stubUserListData.userList);
-            dispatch(createAction(actionTypes.FETCH_USERLIST)(stubUserListData.userList)); // adapter to get only the required columns
+            setTimeout(()=>{
+                dispatch(createAction(actionTypes.FETCH_USERLIST)(stubUserListData.userList)); // adapter to get only the required columns
+            },3000);
+            //dispatch(createAction(actionTypes.FETCH_USERLIST)(stubUserListData.userList)); // adapter to get only the required columns
 
         })
         .catch(function (error) {

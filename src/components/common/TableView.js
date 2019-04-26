@@ -3,7 +3,7 @@ import { Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import Pagination from './Pagination';
 //import { Link } from 'react-router-dom';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label,  FormGroup } from 'reactstrap';
 import './common.css';
 import { updateUserListWithTitle as updateUserListWithTitleActionCreator } from '../../actions/UserList/action_creators';
 

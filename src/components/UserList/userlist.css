@@ -1,0 +1,15 @@
+.search-button-custom{
+    color: #5c5acf !important;
+    border-color: #5c5acf !important;
+    background-color: white !important;
+}
+
+.reset-button-custom {
+    margin-left: 5px;
+    background-color: #5c5acf !important;
+}
+
+.form-inline {
+    display: block !important;
+    align-content: right !important; 
+}
