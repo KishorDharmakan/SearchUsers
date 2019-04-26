@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap';
+import { connect } from 'react-redux';
 import Pagination from './Pagination';
 //import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
 import './common.css';
+import { updateUserListWithTitle as updateUserListWithTitleActionCreator } from '../../actions/UserList/action_creators';
 
 var totalNoOfPages = 0;
 var arrayOfArrays = [];
@@ -11,14 +13,21 @@ var columnHeaders = null;
 var pageTableData = [];
 var currentPage = 1;
 
-export default class TableView extends Component {
+class TableView extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       pageTableDataState: [],
+      modal: false,
+      modalRowValues:[],
+      modalTitleVal:"",
+      //unmountOnClose: true      
     }
     this.getPageData = this.getPageData.bind(this);
+    this.toggle = this.toggle.bind(this);
+    //this.changeUnmountOnClose = this.changeUnmountOnClose.bind(this);
+    this.onChangeTitle = this.onChangeTitle.bind(this);
   }
 
   getColumnNames = (rowVal) => {
@@ -39,8 +48,41 @@ export default class TableView extends Component {
     })
   }
 
+  toggle(values) {
+    this.setState(prevState => ({
+        modal: !prevState.modal,
+        modalRowValues: values,
+        modalTitleVal:values[2],
+    }));
+  }
+
+  // changeUnmountOnClose(e) {
+  //     let value = e.target.value;
+  //     console.log('inside changeUnmountOnClose value:', value);
+  //     //this.setState({ unmountOnClose: JSON.parse(value) });
+  // }
+
+  onChangeTitle(e){
+    console.log('inside onChangeTitle e.name:', e.target.name);
+    console.log('inside onChangeTitle e.value:', e.target.value);
+    this.setState({
+      modalTitleVal:e.target.value
+    })
+  }
+
+
   onClickEditTitle(rowVal){
     console.log('inside onClickEditTitle rowVal:', rowVal);
+    this.toggle(rowVal);
+  }
+
+  onClickSave(){
+    console.log('inside onClickSave this.state.modalRowValues:', this.state.modalRowValues);
+    console.log('inside onClickSave this.state.modalTitleVal:', this.state.modalTitleVal);
+    this.setState(prevState => ({
+      modal: !prevState.modal,
+  }));
+    this.props.updateUserListWithTitle(this.state.modalRowValues,this.state.modalTitleVal);
   }
 
   formArrayOfArraysForPageSplit() {
@@ -116,8 +158,34 @@ export default class TableView extends Component {
 
           </tbody>
         </Table>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} unmountOnClose={this.state.unmountOnClose}>
+            <ModalHeader toggle={this.toggle}>Edit Title</ModalHeader>
+            <ModalBody>
+              <FormGroup><Label for="id">Id</Label>: <Label>{this.state.modalRowValues[1]}</Label> </FormGroup>
+              <FormGroup><Label for="title">Title</Label>: <Input
+                name="title"
+                id="title"
+                placeholder="please enter title"
+                value={this.state.modalTitleVal}
+                onChange={this.onChangeTitle}
+              />
+               </FormGroup>
+               <FormGroup><Label for="body">Body</Label>: <Label>{this.state.modalRowValues[3]}</Label></FormGroup>
+              
+            </ModalBody>
+            <ModalFooter>
+                <Button color="primary" onClick={() => this.onClickSave()}>Save</Button>{' '}
+                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            </ModalFooter>
+        </Modal>
         <Pagination getPageData={this.getPageData} totalNoOfPages={totalNoOfPages} currentPage={currentPage} />
       </div>
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  updateUserListWithTitle: (data, payload)  => dispatch(updateUserListWithTitleActionCreator(data, payload))
+})
+
+export default connect(null, mapDispatchToProps)(TableView);

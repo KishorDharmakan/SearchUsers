@@ -17,6 +17,17 @@ export const fetchUserList = () => dispatch => {
         });
 }
 
+export const updateUserListWithTitle = (data, payload) => dispatch => {
+    console.log('inside updateUserListWithTitle data:', data);
+    console.log('inside updateUserListWithTitle payload:', payload);
+    const updatedData = data.filter((record) => {
+        return (record.height.includes(payload) || record.hash.includes(payload)
+            || record.time.includes(payload));  // Contains search
+    })
+    dispatch(createAction(actionTypes.UPDATE_FETCH_USERLIST)(updatedData));
+
+}
+
 export const fetchUserListWithFilter = (data, payload) => dispatch => {
 
     const filterData = data.filter((record) => {
