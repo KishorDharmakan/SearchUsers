@@ -29,6 +29,9 @@ class SearchUserList extends Component {
         console.log('inside handleOnReset of SearchUserList');
         e.preventDefault();
         this.props.fetchUserListWithFilter(this.props.dataCopyForSearch, "");
+        this.setState({
+            searchText:""
+        })
     }
 
   render() {

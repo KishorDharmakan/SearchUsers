@@ -133,7 +133,6 @@ class TableView extends Component {
         <Table bordered>
           <thead>
             <tr>
-              <th scope="col" style={styleObjSlNo}>Sl No:</th>
               {columnHeaders}
               <th scope="col" style={styleObjViewBlock}>{this.props.linkColValue}</th>
             </tr>
@@ -152,7 +151,7 @@ class TableView extends Component {
                 //linkColumn = <Link to={`/block/${rowData["height"]}`} >{this.props.linkColValue} </Link>;
                 linkColumn = <Button color="link" onClick={()=>this.onClickEditTitle(rowDataArray)} >{this.props.linkColValue}</Button> ;
 
-                return <tr key={slNoCounter}><td>{slNoCounter}</td>{rowDataArray.map((rowVal) => (<td >{rowVal}</td>))}<td>{linkColumn}</td></tr>;
+                return <tr key={slNoCounter}>{rowDataArray.map((rowVal) => (<td >{rowVal}</td>))}<td>{linkColumn}</td></tr>;
               })
               : null}
 
