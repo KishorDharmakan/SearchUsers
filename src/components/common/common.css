@@ -1,0 +1,56 @@
+.header-style {
+    height: 150px;    
+    margin-top: 25px;
+    padding-top: 40px;
+    background-image: linear-gradient(316deg, white 0%, lightblue 74%);
+    background-size: contain;
+    border-radius: 5px;
+}
+
+.footer-style {    
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    padding-top: 20px;
+    background-image: linear-gradient(316deg,white 0%, lightblue 74%);
+    background-size: contain;
+    border-radius: 5px;
+}
+
+.copyright {
+    margin-left: 10px;
+}
+
+.display-h1 {
+	font-family: 'Amatic SC', cursive;
+    font-size: 3em;    
+	margin: 0;
+	color: #fc0000;
+}
+
+.jumbo-custom {
+    background-color:white !important;
+    margin-bottom: 10px !important;
+}
+
+.btn-color-custom {
+    background-color: #fc0000 !important;
+    border-color: #fc0000 !important;
+}
+
+.table-custom {
+    margin-top: 10px;
+}
+
+.table {
+    background-color: white;
+}
+.pagination-button-custom {
+    color: darkblue !important;  
+}
+
+.page-item.active .page-link{
+    color: white !important; 
+    background-color: darkblue !important;
+    border-color:  darkblue !important;
+}
