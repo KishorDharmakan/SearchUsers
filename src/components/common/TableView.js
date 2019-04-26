@@ -158,7 +158,7 @@ class TableView extends Component {
 
           </tbody>
         </Table>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} unmountOnClose={this.state.unmountOnClose}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className='modalstyle'>
             <ModalHeader toggle={this.toggle}>Edit Title</ModalHeader>
             <ModalBody>
               <FormGroup><Label for="id">Id</Label>: <Label>{this.state.modalRowValues[1]}</Label> </FormGroup>

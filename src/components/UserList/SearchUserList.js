@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Input, Col, FormGroup } from 'reactstrap';
 import { fetchUserListWithFilter as fetchUserListWithFilterActionCreator } from '../../actions/UserList/action_creators';
+import Autocomplete from './Autocomplete';
 import './userlist.css';
 
 class SearchUserList extends Component {
@@ -39,7 +40,7 @@ class SearchUserList extends Component {
                 onChange={this.handleOnChange} value={this.state.searchText} />
             </Col>
             <Button className="btn btn-outline-success my-2 my-sm-0 search-button-custom" onClick={this.handleOnSubmit}>Search</Button>
-            <Button className="reset-button-custom" color="primary" onClick={this.handleOnReset}>Reset</Button>
+            <Button className="reset-button-custom" color="primary" onClick={this.handleOnReset}>Reset</Button>           
         </FormGroup>   
       </div>
     )
