@@ -1,5 +1,6 @@
 import * as actionTypes from './action_types';
 import { createAction } from 'redux-actions';
+import adapter from './adapter';
 import { stubUserListData } from './stub';
 
 
@@ -17,13 +18,11 @@ export const fetchUserList = () => dispatch => {
         });
 }
 
-export const updateUserListWithTitle = (data, payload) => dispatch => {
-    console.log('inside updateUserListWithTitle data:', data);
-    console.log('inside updateUserListWithTitle payload:', payload);
-    const updatedData = data.filter((record) => {
-        return (record.height.includes(payload) || record.hash.includes(payload)
-            || record.time.includes(payload));  // Contains search
-    })
+export const updateUserListWithTitle = (rowData, title) => dispatch => {
+    console.log('inside updateUserListWithTitle rowData:', rowData);
+    console.log('inside updateUserListWithTitle title:', title);
+    const updatedData = adapter(rowData, title);
+    console.log('inside updateUserListWithTitle updatedData:', updatedData);
     dispatch(createAction(actionTypes.UPDATE_FETCH_USERLIST)(updatedData));
 
 }
