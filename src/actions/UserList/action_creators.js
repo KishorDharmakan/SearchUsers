@@ -28,10 +28,10 @@ export const updateUserListWithTitle = (rowData, title) => dispatch => {
 }
 
 export const fetchUserListWithFilter = (data, payload) => dispatch => {
-
+    console.log('inside fetchUserListWithFilter of Action Creator data:', data);
+    console.log('inside fetchUserListWithFilter of Action Creator payload:', payload);
     const filterData = data.filter((record) => {
-        return (record.height.includes(payload) || record.hash.includes(payload)
-            || record.time.includes(payload));  // Contains search
+        return (record.title.includes(payload));  // Contains search
     })
     dispatch(createAction(actionTypes.SEARCH_FETCH_USERLIST)(filterData));
 

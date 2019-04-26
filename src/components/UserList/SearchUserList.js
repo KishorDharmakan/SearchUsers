@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchBlocksWithFilter as fetchBlocksWithFilterActionCreator } from '../../actions/BlocksList/action_creators';
+import { fetchUserListWithFilter as fetchUserListWithFilterActionCreator } from '../../actions/UserList/action_creators';
 
-class SearchBlockItems extends Component {
+class SearchUserList extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -17,8 +17,9 @@ class SearchBlockItems extends Component {
     }
 
     handleOnSubmit=(e)=>{
+        console.log('inside handleOnSubmit of SearchUserList');
         e.preventDefault();
-        this.props.fetchBlocksWithFilter(this.props.dataCopyForSearch, this.state.searchText);
+        this.props.fetchUserListWithFilter(this.props.dataCopyForSearch, this.state.searchText);
     }
 
   render() {
@@ -35,11 +36,12 @@ class SearchBlockItems extends Component {
 }
 
 const mapStateToProps = state => ({
-    dataCopyForSearch: state.listBlocks.dataCopyForSearch,
+    //dataCopyForSearch: state.listUsers.dataCopyForSearch,
+    dataCopyForSearch: state.listUsers.dataCopyForSearch,
   })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchBlocksWithFilter: (data, payload) => dispatch(fetchBlocksWithFilterActionCreator(data, payload))
+    fetchUserListWithFilter: (data, payload) => dispatch(fetchUserListWithFilterActionCreator(data, payload))
   })
 
-  export default connect(mapStateToProps, mapDispatchToProps) (SearchBlockItems);
+  export default connect(mapStateToProps, mapDispatchToProps) (SearchUserList);

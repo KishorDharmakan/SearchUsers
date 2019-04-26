@@ -30,7 +30,7 @@ export default function (state , action) {
             console.log('updatedData:', updatedData);
             return Object.assign({},state, {loading:false, data:updatedData});
         case SEARCH_FETCH_USERLIST:
-            return Object.assign({},state, {loading:false, data:action.payload });
+            return Object.assign({},state, {loading:false, data:action.payload});
         default:
             return state;
     }
