@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Input, Col, FormGroup } from 'reactstrap';
 import { fetchUserListWithFilter as fetchUserListWithFilterActionCreator } from '../../actions/UserList/action_creators';
-import Autocomplete from './Autocomplete';
 import './userlist.css';
 
 class SearchUserList extends Component {
