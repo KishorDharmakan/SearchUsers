@@ -13,10 +13,11 @@ var columnHeaders = null;
 var pageTableData = [];
 var currentPage = 1;
 
-class TableView extends Component {
+export class TableView extends Component {
 
-  constructor(props) {
+  constructor(props) {    
     super(props);
+    console.log('inside constructor this.props:', this.props);
     this.state = {
       pageTableDataState: [],
       modal: false,
@@ -120,15 +121,11 @@ class TableView extends Component {
 
     this.formArrayOfArraysForPageSplit();
     let slNoCounter = 0;
-    const styleObjSlNo = {
-      width: "7%"
-    };
     const styleObjViewBlock = {
-      width: "15%"
+      width: "19%"
     };
     return (
       <div className="table-custom table-responsive">
-        <h5>{this.props.tableHeading}</h5>
         <Pagination getPageData={this.getPageData} totalNoOfPages={totalNoOfPages} currentPage={currentPage} />
         <Table bordered>
           <thead>
