@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import * as actionTypes from '../../../src/actions/UserList/action_types';
-import reducer from '../../../src/reducers/userlist_reducer';
+import * as actionTypes from '../../actions/UserList/action_types';
+import reducer from '../../reducers/userlist_reducer';
 
 const initialState = reducer (undefined, {});
 

@@ -6,16 +6,21 @@ import { stubUserListData } from './stub';
 
 export const fetchUserList = () => dispatch => {
     dispatch(createAction(actionTypes.LOADING_USERLIST)());
-    fetch("http://localhost:3100/userDetails", { mode: 'no-cors' })
-        .then((resp) => resp)
-        .then(function (data) {
-            console.log('inside fetchBlocks stubUserListData.userList:', stubUserListData.userList);
-            setTimeout(()=>{
-                dispatch(createAction(actionTypes.FETCH_USERLIST)(stubUserListData.userList)); // adapter to get only the required columns
-            },3000);
-            //dispatch(createAction(actionTypes.FETCH_USERLIST)(stubUserListData.userList)); // adapter to get only the required columns
-
+    return fetch("http://localhost:3100/userDetails")
+        .then((resp) => {
+            console.log('resp:', resp);
+            return resp.json();
         })
+        .then((data => {
+                console.log('inside fetchUserList data:', data);
+                // To show the spinner, adding extra 3 seconds delay
+                setTimeout(()=>{
+                    dispatch(createAction(actionTypes.FETCH_USERLIST)(data)); // adapter to get only the required columns
+                },3000);
+                //dispatch(createAction(actionTypes.FETCH_USERLIST)(data)); // adapter to get only the required columns
+    
+            
+        }))
         .catch(function (error) {
             dispatch(createAction(actionTypes.ERROR_USERLIST)(error));
         });
