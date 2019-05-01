@@ -5,6 +5,7 @@ import { SEARCH_FETCH_USERLIST } from '../actions/UserList/action_types';
 import { UPDATE_FETCH_USERLIST } from '../actions/UserList/action_types';
 
 
+
 let stateValue={
     loading: false,
     data:{},
