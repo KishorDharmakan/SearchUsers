@@ -91,7 +91,7 @@ describe('Displaying Table data', () => {
     });
 
     it('should contain Modal state value as false',() => {
-      expect(tableViewWrapper.find(Modal)).to.have.lengthOf(1);
+      expect(tableViewWrapper.find(Modal)).to.have.lengthOf(2);// Modal for Edit and Delete
       expect(tableViewWrapper.state('modal')).to.eql(false);      
     });
 

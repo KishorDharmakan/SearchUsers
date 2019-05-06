@@ -20,7 +20,7 @@ class UserList extends Component {
           <Spinner color="primary" type="grow"/>
           :
           this.props.error ? <Alert errorMessage={this.props.error} />
-            : <TableView tableData={this.props.data} colWidthPercentage={[7, 7, 25, 42]} linkColValue="Edit Title" />}
+            : <TableView tableData={this.props.data} colWidthPercentage={[7, 7, 25, 42]} linkColValue="Edit Title" linkDeleteTitle="Delete UserId"/>}
       </div>
     )
   }

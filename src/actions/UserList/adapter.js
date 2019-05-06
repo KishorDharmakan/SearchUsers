@@ -16,3 +16,4 @@ export default function adapter(rowData, title) {
     });
     return newRowData;
 }
+

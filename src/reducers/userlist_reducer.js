@@ -3,6 +3,7 @@ import { FETCH_USERLIST } from '../actions/UserList/action_types';
 import { ERROR_USERLIST } from '../actions/UserList/action_types';
 import { SEARCH_FETCH_USERLIST } from '../actions/UserList/action_types';
 import { UPDATE_FETCH_USERLIST } from '../actions/UserList/action_types';
+import { DELETE_FETCH_USERLIST } from '../actions/UserList/action_types';
 
 
 
@@ -32,6 +33,8 @@ export default function (state , action) {
             return Object.assign({},state, {loading:false, data:updatedData});
         case SEARCH_FETCH_USERLIST:
             return Object.assign({},state, {loading:false, data:action.payload});
+        case DELETE_FETCH_USERLIST:
+            return Object.assign({},state, {loading:false, data:action.payload});
         default:
             return state;
     }
@@ -50,3 +53,4 @@ function updateTitleInJSONData(existingJSON, payload){
     console.log('finalVal:', existingJSONData);
     return existingJSONData;
     }
+

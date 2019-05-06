@@ -6,6 +6,7 @@ import Pagination from './Pagination';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label,  FormGroup } from 'reactstrap';
 import './common.css';
 import { updateUserListWithTitle as updateUserListWithTitleActionCreator } from '../../actions/UserList/action_creators';
+import { deleteUserList as deleteUserListActionCreator } from '../../actions/UserList/action_creators';
 
 var totalNoOfPages = 0;
 var arrayOfArrays = [];
@@ -21,6 +22,7 @@ export class TableView extends Component {
     this.state = {
       pageTableDataState: [],
       modal: false,
+      modalDelete:false,
       modalRowValues:[],
       modalTitleVal:"",
       //unmountOnClose: true      
@@ -57,6 +59,13 @@ export class TableView extends Component {
     }));
   }
 
+  toggleDeleteModal(values) {
+    this.setState(prevState => ({
+        modalDelete: !prevState.modal,
+        modalRowValues: values,
+    }));
+  }
+
   // changeUnmountOnClose(e) {
   //     let value = e.target.value;
   //     console.log('inside changeUnmountOnClose value:', value);
@@ -77,6 +86,12 @@ export class TableView extends Component {
     this.toggle(rowVal);
   }
 
+  
+  onClickDeleteTitle(rowVal){
+    console.log('inside onClickDeleteTitle rowVal:', rowVal);
+    this.toggleDeleteModal(rowVal);
+  }
+
   onClickSave(){
     console.log('inside onClickSave this.state.modalRowValues:', this.state.modalRowValues);
     console.log('inside onClickSave this.state.modalTitleVal:', this.state.modalTitleVal);
@@ -84,6 +99,14 @@ export class TableView extends Component {
       modal: !prevState.modal,
   }));
     this.props.updateUserListWithTitle(this.state.modalRowValues,this.state.modalTitleVal);
+  }
+
+  onClickDelete(){
+    console.log('inside onClickDelete this.state.modalRowValues:', this.state.modalRowValues);
+    this.setState(prevState => ({
+      modalDelete: !prevState.modalDelete,
+  }));
+    this.props.deleteUserList(this.props.tableData, this.state.modalRowValues);
   }
 
   formArrayOfArraysForPageSplit() {
@@ -122,7 +145,7 @@ export class TableView extends Component {
     this.formArrayOfArraysForPageSplit();
     let slNoCounter = 0;
     const styleObjViewBlock = {
-      width: "19%"
+      width: "10%"
     };
     return (
       <div className="table-custom table-responsive">
@@ -132,6 +155,7 @@ export class TableView extends Component {
             <tr>
               {columnHeaders}
               <th scope="col" style={styleObjViewBlock}>{this.props.linkColValue}</th>
+              <th scope="col" style={styleObjViewBlock}>{this.props.linkDeleteTitle}</th>
             </tr>
           </thead>
           <tbody>
@@ -140,6 +164,7 @@ export class TableView extends Component {
                 let rowDataArray = [];
                 slNoCounter++;
                 let linkColumn = null;
+                let linkDeleteTitle = null;
                 for (let i = 0; i < Object.keys(rowData).length; i++) {
                   const col = Object.keys(rowData)[i];
                   rowDataArray.push(rowData[col])
@@ -147,8 +172,9 @@ export class TableView extends Component {
                 console.log('inside render of TableView rowDataArray:', rowDataArray);
                 //linkColumn = <Link to={`/block/${rowData["height"]}`} >{this.props.linkColValue} </Link>;
                 linkColumn = <Button color="link" onClick={()=>this.onClickEditTitle(rowDataArray)} >{this.props.linkColValue}</Button> ;
+                linkDeleteTitle = <Button color="link" onClick={()=>this.onClickDeleteTitle(rowDataArray)} >{this.props.linkDeleteTitle}</Button> ;
 
-                return <tr key={slNoCounter}>{rowDataArray.map((rowVal) => (<td >{rowVal}</td>))}<td>{linkColumn}</td></tr>;
+                return <tr key={slNoCounter}>{rowDataArray.map((rowVal) => (<td >{rowVal}</td>))}<td>{linkColumn}</td><td>{linkDeleteTitle}</td></tr>;
               })
               : null}
 
@@ -174,6 +200,16 @@ export class TableView extends Component {
                 <Button color="secondary" onClick={this.toggle}>Cancel</Button>
             </ModalFooter>
         </Modal>
+        <Modal isOpen={this.state.modalDelete} toggle={this.toggleDeleteModal} className='modalstyle'>
+            <ModalHeader toggle={this.toggle}>Delete Title</ModalHeader>
+            <ModalBody>
+              <FormGroup><Label for="idDelete">Do you really want to Delete the record</Label></FormGroup>              
+            </ModalBody>
+            <ModalFooter>
+                <Button color="primary" onClick={() => this.onClickDelete()}>Delete</Button>{' '}
+                <Button color="secondary" onClick={this.toggleDeleteModal}>Cancel</Button>
+            </ModalFooter>
+        </Modal>
         <Pagination getPageData={this.getPageData} totalNoOfPages={totalNoOfPages} currentPage={currentPage} />
       </div>
     )
@@ -181,7 +217,8 @@ export class TableView extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  updateUserListWithTitle: (data, payload)  => dispatch(updateUserListWithTitleActionCreator(data, payload))
+  updateUserListWithTitle: (data, payload)  => dispatch(updateUserListWithTitleActionCreator(data, payload)),
+  deleteUserList: (data, payload) => dispatch(deleteUserListActionCreator(data, payload))
 })
 
 export default connect(null, mapDispatchToProps)(TableView);

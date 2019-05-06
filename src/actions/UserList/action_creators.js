@@ -1,6 +1,7 @@
 import * as actionTypes from './action_types';
 import { createAction } from 'redux-actions';
 import adapter from './adapter';
+import adapterDelete from './adapterDelete';
 import { stubUserListData } from './stub';
 
 
@@ -42,5 +43,14 @@ export const fetchUserListWithFilter = (data, payload) => dispatch => {
         return (record.title.includes(payload));  // Contains search
     })
     dispatch(createAction(actionTypes.SEARCH_FETCH_USERLIST)(filterData));
+
+}
+
+export const deleteUserList = (data, rowData) => dispatch => {
+    console.log('inside deleteUserList data:', data);  
+    console.log('inside deleteUserList rowData:', rowData);    
+     const updatedData = adapterDelete(data, rowData);
+    // console.log('inside deleteUserList updatedData:', updatedData);
+    dispatch(createAction(actionTypes.DELETE_FETCH_USERLIST)(updatedData));
 
 }
